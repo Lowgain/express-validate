@@ -2,7 +2,10 @@
  * Dmitry Petrov http://corpix.ru
  * http://dream-web.ru
  */
-var Validator = require('validator').Validator;
+var validator = require('validator'),
+  Validator = validator.Validator,
+  sanitize = validator.sanitize;
+  
 var v = new Validator();
 
 v.error = function(msg) {
@@ -39,7 +42,7 @@ module.exports = function(req, res, next) {
         param = this.getParam(param)
         if(param instanceof Error) throw param
       }
-      return v.sanitize(param)
+      return sanitize(param)
     }
     return next()
 }
